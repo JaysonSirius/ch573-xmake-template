@@ -3,7 +3,8 @@ set_project("ch573-xmake")
 -- 设置工程版本
 set_version("0.1.0", {build = "%Y%m%d%H%M"})
 
-add_rules("mode.debug", "mode.release")
+-- 编译模式，其中check模式用于内存检测
+add_rules("mode.debug", "mode.release", "mode.check")
 
 -- 定义交叉编译工具链
 toolchain("wch-riscv-gcc")
@@ -27,12 +28,16 @@ target("ch573")
     set_toolchains("wch-riscv-gcc")
     -- 设置生成文件名
     set_filename("ch573.elf")
-    -- 设置优化级别，这里是-Os最小化代码优化
-    set_optimize("smallest")
+    -- 设置优化级别，smallest=-Os最小化代码优化
+    if is_mode("release") then
+        set_optimize("smallest")
+    end
     -- 设置语言标准
     set_languages("gnu99", "cxx11")
     -- 添加宏定义
-    add_defines("DEBUG=1")
+    if is_mode("debug") or is_mode("check") then
+        add_defines("DEBUG=1")
+    end
     -- 添加C/C++编译选项
     add_cxflags(
         "-march=rv32imac",
@@ -45,9 +50,11 @@ target("ch573")
         "-ffunction-sections",
         "-fdata-sections",
         "-fno-common",
-        "-Wunused",
-        "-g"
+        "-Wunused"
     )
+    if is_mode("debug") or is_mode("check") then
+        add_cxflags("-g")
+    end
     -- 添加汇编编译选项
     add_asflags(
         "-march=rv32imac",
@@ -61,9 +68,11 @@ target("ch573")
         "-fdata-sections",
         "-fno-common",
         "-Wunused",
-        "-g",
         "-x assembler"
     )
+    if is_mode("debug") or is_mode("check") then
+        add_asflags("-g")
+    end
     -- 添加静态链接选项
     add_ldflags(
         "-nostartfiles",
@@ -95,7 +104,7 @@ target("ch573")
         -- 添加源文件
         add_files(src_path.."/**.c")
         -- 添加头文件搜索目录
-        -- add_includedirs(os.dirs(src_path.."/**"))
+        -- add_includedirs(src_path.."/inc")
 
     -- 加载时操作
     on_load(function (target)
