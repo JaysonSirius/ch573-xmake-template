@@ -10,7 +10,7 @@
 
 #include "CH57x_common.h"
 #if DISK_LIB_ENABLE
-  #include "CHRV3UFI.H"
+  #include "CHRV3UFI.h"
 #endif
 
 uint8_t       UsbDevEndp0Size; // USB设备的端点0的最大包尺寸

@@ -8,6 +8,9 @@
  * SPDX-License-Identifier: Apache-2.0
  *******************************************************************************/
 
+#include <stdint.h>
+#include "CH573SFR.h"
+
 #ifndef __CH57x_USBHOST_H__
 #define __CH57x_USBHOST_H__
 

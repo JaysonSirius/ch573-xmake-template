@@ -15,7 +15,7 @@
 /** U盘挂载USBhub下面，需要在工程属性预编译中修改 DISK_WITHOUT_USB_HUB=0  */
 
 #include "CH57x_common.h"
-#include "CHRV3UFI.H"
+#include "CHRV3UFI.h"
 
 __attribute__((aligned(4))) uint8_t RxBuffer[MAX_PACKET_SIZE]; // IN, must even address
 __attribute__((aligned(4))) uint8_t TxBuffer[MAX_PACKET_SIZE]; // OUT, must even address

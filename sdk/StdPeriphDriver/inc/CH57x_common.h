@@ -49,6 +49,7 @@ extern "C" {
 #define CAB_LSIFQ       32000
 #endif
 
+#include <stdio.h>
 #include <string.h>
 #include <stdint.h>
 #include "CH573SFR.h"

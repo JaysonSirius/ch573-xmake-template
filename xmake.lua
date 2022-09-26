@@ -7,11 +7,11 @@ set_version("0.1.0", {build = "%Y%m%d%H%M"})
 add_rules("mode.debug", "mode.release", "mode.check")
 
 -- 定义交叉编译工具链
+local sdk_tool_dir = os.getenv("WCH_RISCV_SDK")
+    or "opt/wchtools/xpack-riscv-none-embed-gcc-8.2.0"
 toolchain("wch-riscv-gcc")
     set_kind("standalone")
-    local sdk_dir = os.getenv("WCH_RISCV_SDK")
-        or "opt/wchtools/xpack-riscv-none-embed-gcc-8.2.0"
-    set_sdkdir(sdk_dir)
+    set_sdkdir(sdk_tool_dir)
 toolchain_end()
 
 -- 禁用flags的自动检测和忽略机制
@@ -103,6 +103,7 @@ target("ch573")
         -- 添加源文件
         add_files(sdk_path.."/**.c")
         -- 添加头文件搜索目录
+        add_includedirs(sdk_tool_dir.."/riscv-none-embed/include")
         add_includedirs(sdk_path.."/RVMSIS")
         add_includedirs(sdk_path.."/StdPeriphDriver/inc")
         add_includedirs(sdk_path.."/USB_LIB")

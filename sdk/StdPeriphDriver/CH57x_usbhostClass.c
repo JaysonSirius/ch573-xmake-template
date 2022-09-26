@@ -10,7 +10,7 @@
 
 #include "CH57x_common.h"
 #if DISK_LIB_ENABLE
-  #include "CHRV3UFI.H"
+  #include "CHRV3UFI.h"
 #endif
 
 /* 设置HID上传速率 */
