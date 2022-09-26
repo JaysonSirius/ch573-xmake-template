@@ -240,6 +240,12 @@ void SelectHubPort(uint8_t HubPortIndex)
         SetUsbSpeed(ThisUsbDev.DeviceSpeed);      // 设置USB设备的速度
     }
 }
+#else
+void SelectHubPort(uint8_t HubPortIndex)
+{
+    // do nothing, defined to solve ld error: undefined reference to 'SelectHubPort'
+    return;
+}
 #endif
 
 /*********************************************************************

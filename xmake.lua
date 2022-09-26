@@ -34,10 +34,16 @@ target("ch573")
     end
     -- 设置语言标准
     set_languages("gnu99", "cxx11")
+
     -- 添加宏定义
     if is_mode("debug") or is_mode("check") then
-        add_defines("DEBUG=1")
+        add_defines("DEBUG")
     end
+    -- U盘是否挂载USBhub下面，不挂载则定义
+    add_defines("DISK_WITHOUT_USB_HUB")
+    -- 是否使用U盘文件系统库，使用则定义
+    add_defines("DISK_LIB_ENABLE")
+
     -- 添加C/C++编译选项
     add_cxflags(
         "-march=rv32imac",
@@ -87,8 +93,9 @@ target("ch573")
         local sdk_path = "$(projectdir)/sdk"
         -- 添加链接库搜索目录
         add_linkdirs(sdk_path.."/StdPeriphDriver")
+        add_linkdirs(sdk_path.."/USB_LIB")
         -- 添加链接库
-        add_links("ISP573")
+        add_links("ISP573", "RV3UFI")
         -- 添加启动文件
         add_files(sdk_path.."/Startup/startup_CH573.S")
         -- 添加链接脚本
@@ -98,6 +105,7 @@ target("ch573")
         -- 添加头文件搜索目录
         add_includedirs(sdk_path.."/RVMSIS")
         add_includedirs(sdk_path.."/StdPeriphDriver/inc")
+        add_includedirs(sdk_path.."/USB_LIB")
 
     -- 添加项目相关文件
         local src_path = "$(projectdir)/src"

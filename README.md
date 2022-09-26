@@ -10,8 +10,9 @@ Build CH573(a 32-bit RISC-V Bluetooth Low energy MCU) by xmake.
 1) :white_check_mark: xmake工程创建
 2) :white_check_mark: CH573基础SDK编译（参考ADC例程）
 3) :white_check_mark: 除BLE和USB外的例程编译
-4) :white_large_square: USB的SDK添加及例程编译
-5) :white_large_square: BLE的SDK添加及例程编译
+4) :white_check_mark: USB的SDK添加及例程编译
+5) :white_large_square: vscode-clangd代码提示的支持
+6) :white_large_square: BLE的SDK添加及例程编译
 
 ----
 ## 2. 如何使用
